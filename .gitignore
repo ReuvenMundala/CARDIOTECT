@@ -1,0 +1,139 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Project specific exclusions
+dataset/
+dataset_original/
+SPECIAL DATASET/
+outputs/
+!outputs/checkpoints/*.ckpt
+RS PAPERS/
+*.pdf
+*.docx
+*.log
+*.csv
+*.txt
+!requirements.txt
+*.ckpt
+!outputs/checkpoints/*.ckpt
+*.pth
+*.h5
+*.hdf5
+*.nii.gz
+*.nii
+*.dcm
+*.xml
+*.plist
+*.json
+# !citations.json  # Keep if needed, but excluded by default
+citations.json
+*.bat
+!start_cardiotect_v2.bat
+!start_cardiotect_v3.bat
+!start_cardiotect_web.bat
+!setup.bat
+!.env.example
+
+# Temporary files
+tmp_*.py
+chk.py
+chk2.py
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Project specific
+.agent/
+__pycache__/

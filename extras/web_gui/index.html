@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CARDIOTECT // Immersive Web GUI Draft</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="spotlight" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar glass tilt-card">
+      <div class="brand-block">
+        <div class="brand-logo">C</div>
+        <div>
+          <p class="eyebrow muted">Prototype</p>
+          <h2 class="brand-title">CARDIOTECT</h2>
+        </div>
+      </div>
+
+      <nav class="nav-stack">
+        <button class="nav-btn active" data-section="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+          <span>Overview</span>
+        </button>
+        <button class="nav-btn" data-section="studio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 8h10M7 12h4m2 0h4M7 16h10"/></svg>
+          <span>CT Studio</span>
+        </button>
+        <button class="nav-btn" data-section="territories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4M4.9 4.9l2.8 2.8m8.6 8.6 2.8 2.8m0-14.2-2.8 2.8m-8.6 8.6-2.8 2.8"/></svg>
+          <span>Territories</span>
+        </button>
+        <button class="nav-btn" data-section="risk">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 5 6v6c0 5 3.5 8 7 9 3.5-1 7-4 7-9V6l-7-3Z"/><path d="M9.5 12.5 11 14l3.5-4"/></svg>
+          <span>Risk Engine</span>
+        </button>
+        <button class="nav-btn" data-section="evidence">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m8 14 2.4-2.6a1 1 0 0 1 1.4-.1L14 13l1.7-1.8a1 1 0 0 1 1.5 0L20 14.5"/><circle cx="9" cy="9" r="1.3"/></svg>
+          <span>Evidence Wall</span>
+        </button>
+        <button class="nav-btn" data-section="report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h6M10 9h2"/></svg>
+          <span>Report Lab</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer glass-soft">
+        <p class="mini-label">Draft mode</p>
+        <h3>Simulated outputs only</h3>
+        <p>This concept is designed for presentation, demos, and UI exploration — not clinical use.</p>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar glass">
+        <div>
+          <p class="eyebrow">Immersive cardiovascular AI interface</p>
+          <h1>From capstone manuscript to cinematic product experience</h1>
+        </div>
+        <div class="topbar-right">
+          <label class="search-box glass-soft">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="quick-search" type="text" placeholder="Search patient, metric, section..." />
+          </label>
+          <button class="chip danger-chip" id="simulate-btn">Demo Pulse</button>
+        </div>
+      </header>
+
+      <section class="content-section active" id="overview">
+        <div class="hero-grid">
+          <div class="hero-copy glass tilt-card">
+            <div class="hero-badge-row">
+              <span class="chip accent">ECG-gated CT</span>
+              <span class="chip accent-alt">Three-territory scoring</span>
+              <span class="chip accent-soft">Research-driven interface</span>
+            </div>
+            <h2>Automated calcium scoring, <span class="gradient-text">reimagined as a premium web command center</span></h2>
+            <p class="lead">This concept translates your final CARDIOTECT manuscript into a web-first experience: automated CAC segmentation, Agatston score estimation, five-tier risk classification, and LM-LAD / LCX / RCA territory reporting — all wrapped in a glassmorphic, 3D-heavy interface.</p>
+
+            <div class="highlight-points">
+              <div class="point-card glass-soft">
+                <strong>Locked evaluation cohort</strong>
+                <span>551 scans</span>
+              </div>
+              <div class="point-card glass-soft">
+                <strong>Core workflow</strong>
+                <span>2.5D CT → segmentation → Agatston → risk</span>
+              </div>
+              <div class="point-card glass-soft">
+                <strong>Clinical output set</strong>
+                <span>Mask, score, tier, vessel burden</span>
+              </div>
+            </div>
+
+            <div class="cta-row">
+              <button class="primary-btn" data-jump="studio">Launch CT Studio</button>
+              <button class="secondary-btn" data-jump="evidence">Open Evidence Wall</button>
+            </div>
+
+            <div class="cohort-strip glass-soft">
+              <div>
+                <span class="strip-label">CAC+</span>
+                <strong>290</strong>
+              </div>
+              <div>
+                <span class="strip-label">CAC = 0</span>
+                <strong>261</strong>
+              </div>
+              <div>
+                <span class="strip-label">Annotated lesions</span>
+                <strong>6,211</strong>
+              </div>
+              <div>
+                <span class="strip-label">Threshold</span>
+                <strong>HU &gt; 130</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual glass immersive-frame">
+            <div class="hero-visual-top">
+              <div>
+                <p class="mini-label">3D diagnostic centerpiece</p>
+                <h3>Holographic coronary intelligence core</h3>
+              </div>
+              <div class="live-pill"><span></span> Live concept render</div>
+            </div>
+            <div class="heart-stage">
+              <canvas id="heart-canvas" width="680" height="620" aria-label="Animated 3D heart concept"></canvas>
+              <div class="ring ring-a"></div>
+              <div class="ring ring-b"></div>
+              <div class="orb orb-lmlad">
+                <span>LM-LAD</span>
+                <small>ICC 0.8556</small>
+              </div>
+              <div class="orb orb-lcx">
+                <span>LCX</span>
+                <small>ICC 0.7424</small>
+              </div>
+              <div class="orb orb-rca">
+                <span>RCA</span>
+                <small>ICC 0.9545</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-grid" id="metric-grid"></div>
+
+        <div class="split-grid">
+          <div class="glass pipeline-panel tilt-card">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Pipeline architecture</p>
+                <h3>Paper-driven system flow</h3>
+              </div>
+              <span class="chip">Auto-cycling stages</span>
+            </div>
+            <div class="pipeline-lane" id="pipeline-lane">
+              <div class="pipeline-step active" data-step="0">
+                <span>01</span>
+                <h4>DICOM ingest</h4>
+                <p>HU conversion, slice parsing, scan preparation.</p>
+              </div>
+              <div class="pipeline-step" data-step="1">
+                <span>02</span>
+                <h4>2.5D preprocessing</h4>
+                <p>HU clipping, zero-centered normalization, adjacent slice stacking.</p>
+              </div>
+              <div class="pipeline-step" data-step="2">
+                <span>03</span>
+                <h4>ConvNeXt segmentation</h4>
+                <p>Encoder-decoder mask generation with deep supervision.</p>
+              </div>
+              <div class="pipeline-step" data-step="3">
+                <span>04</span>
+                <h4>Post-processing</h4>
+                <p>0.75 confidence threshold, HU &gt; 130, lesion filtering.</p>
+              </div>
+              <div class="pipeline-step" data-step="4">
+                <span>05</span>
+                <h4>Clinical outputs</h4>
+                <p>Agatston score, risk tier, and LM-LAD / LCX / RCA territory burden.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass output-panel tilt-card">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Clinical output stack</p>
+                <h3>What the interface surfaces</h3>
+              </div>
+            </div>
+            <div class="output-stack">
+              <div class="output-tile glow-red">
+                <h4>Binary Segmentation Mask</h4>
+                <p>High-confidence calcium localization with simulated overlay visualization.</p>
+              </div>
+              <div class="output-tile glow-cyan">
+                <h4>Total Agatston Score</h4>
+                <p>Continuous calcium burden estimate with live risk translation.</p>
+              </div>
+              <div class="output-tile glow-gold">
+                <h4>Five-tier Risk Category</h4>
+                <p>I (0) → V (&gt;400), presented as cards, ring charts, and summary badges.</p>
+              </div>
+              <div class="output-tile glow-purple">
+                <h4>Territory Burden Report</h4>
+                <p>LM-LAD, LCX, and RCA outputs displayed as cinematic vessel analytics.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="studio">
+        <div class="section-head wide-head">
+          <div>
+            <p class="eyebrow">Interactive simulation lab</p>
+            <h2>CT Studio</h2>
+          </div>
+          <div class="head-actions">
+            <button class="chip" id="play-slices">Play slices</button>
+            <button class="chip secondary" id="toggle-overlay">Toggle AI overlay</button>
+          </div>
+        </div>
+
+        <div class="studio-grid">
+          <div class="glass studio-canvas-card tilt-card">
+            <div class="studio-toolbar">
+              <div>
+                <p class="mini-label">Simulated axial review</p>
+                <h3 id="case-title">Demo Patient 021 — Mild burden profile</h3>
+              </div>
+              <div class="toolbar-readout">
+                <div><span>Slice</span><strong id="slice-readout">18 / 48</strong></div>
+                <div><span>Threshold</span><strong>130 HU</strong></div>
+                <div><span>Confidence</span><strong>0.75</strong></div>
+              </div>
+            </div>
+            <canvas id="ct-canvas" width="960" height="700" aria-label="Simulated CT slice viewer"></canvas>
+            <div class="studio-controls">
+              <label>
+                Slice index
+                <input id="slice-slider" type="range" min="0" max="47" value="18" />
+              </label>
+              <label>
+                Heatmap boost
+                <input id="heat-slider" type="range" min="30" max="100" value="72" />
+              </label>
+            </div>
+          </div>
+
+          <div class="side-column">
+            <div class="glass case-selector tilt-card">
+              <div class="section-head compact-head">
+                <div>
+                  <p class="eyebrow">Scenario bank</p>
+                  <h3>Demo patients</h3>
+                </div>
+              </div>
+              <div class="case-list" id="case-list"></div>
+            </div>
+
+            <div class="glass case-insight tilt-card">
+              <div class="section-head compact-head">
+                <div>
+                  <p class="eyebrow">Current readout</p>
+                  <h3>AI result summary</h3>
+                </div>
+              </div>
+              <div class="result-stat-grid">
+                <div>
+                  <span>Agatston</span>
+                  <strong id="patient-score">37</strong>
+                </div>
+                <div>
+                  <span>Risk</span>
+                  <strong id="patient-risk">III (11–100)</strong>
+                </div>
+                <div>
+                  <span>Top territory</span>
+                  <strong id="patient-territory">LM-LAD</strong>
+                </div>
+                <div>
+                  <span>Confidence</span>
+                  <strong id="patient-confidence">0.94</strong>
+                </div>
+              </div>
+              <p id="patient-note" class="case-note"></p>
+              <div class="mini-bars" id="patient-vessels"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="territories">
+        <div class="section-head wide-head">
+          <div>
+            <p class="eyebrow">Three-territory formulation</p>
+            <h2>Territory analytics</h2>
+          </div>
+          <div class="head-actions">
+            <button class="chip active territory-toggle" data-mode="agreement">Study agreement</button>
+            <button class="chip territory-toggle" data-mode="patient">Patient burden</button>
+          </div>
+        </div>
+
+        <div class="territory-grid">
+          <div class="glass territory-sphere tilt-card">
+            <div class="section-head compact-head">
+              <div>
+                <p class="eyebrow">3D territory scene</p>
+                <h3>Rotating vessel map</h3>
+              </div>
+            </div>
+            <div class="sphere-wrap">
+              <div class="sphere-core"></div>
+              <div class="sphere-ring sphere-ring-a"></div>
+              <div class="sphere-ring sphere-ring-b"></div>
+              <div class="sphere-label label-a">LM-LAD</div>
+              <div class="sphere-label label-b">LCX</div>
+              <div class="sphere-label label-c">RCA</div>
+            </div>
+            <p class="sphere-note">The visual system mirrors the paper’s three-territory output format and gives each coronary region a dedicated analytics state.</p>
+          </div>
+
+          <div class="glass territory-board tilt-card">
+            <div class="section-head compact-head">
+              <div>
+                <p class="eyebrow">Live panel</p>
+                <h3 id="territory-board-title">Study-wide agreement profile</h3>
+              </div>
+            </div>
+            <div class="territory-bars" id="territory-bars"></div>
+            <div class="territory-legend">
+              <span><i class="legend-dot red"></i> Dice</span>
+              <span><i class="legend-dot cyan"></i> ICC</span>
+              <span><i class="legend-dot gold"></i> MAE / burden</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="risk">
+        <div class="section-head wide-head">
+          <div>
+            <p class="eyebrow">Risk stratification engine</p>
+            <h2>Five-tier cardiovascular categories</h2>
+          </div>
+        </div>
+
+        <div class="risk-grid">
+          <div class="glass donut-card tilt-card">
+            <div class="section-head compact-head">
+              <div>
+                <p class="eyebrow">Live patient tier</p>
+                <h3>Risk ring</h3>
+              </div>
+            </div>
+            <div class="risk-donut-wrap">
+              <div class="risk-donut" id="risk-donut">
+                <div class="risk-donut-center">
+                  <span>Current</span>
+                  <strong id="risk-tier-label">III</strong>
+                </div>
+              </div>
+              <div class="tier-list" id="tier-list"></div>
+            </div>
+          </div>
+
+          <div class="glass matrix-card tilt-card">
+            <div class="section-head compact-head">
+              <div>
+                <p class="eyebrow">Study result</p>
+                <h3>Risk confusion matrix</h3>
+              </div>
+              <span class="chip accent-soft">98.9% accuracy</span>
+            </div>
+            <div class="matrix-grid" id="matrix-grid"></div>
+          </div>
+
+          <div class="glass tier-summary tilt-card">
+            <div class="section-head compact-head">
+              <div>
+                <p class="eyebrow">Classifier profile</p>
+                <h3>Category intelligence</h3>
+              </div>
+            </div>
+            <div class="summary-cards">
+              <div class="summary-card">
+                <span>Weighted κ</span>
+                <strong>0.9953</strong>
+              </div>
+              <div class="summary-card">
+                <span>Correct classifications</span>
+                <strong>545 / 551</strong>
+              </div>
+              <div class="summary-card">
+                <span>Tier thresholds</span>
+                <strong>0 · 10 · 100 · 400</strong>
+              </div>
+            </div>
+            <p class="fine-print">The demo keeps the same five-tier framing used in the final manuscript: I (0), II (1–10), III (11–100), IV (101–400), and V (&gt;400).</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="evidence">
+        <div class="section-head wide-head">
+          <div>
+            <p class="eyebrow">Research evidence wall</p>
+            <h2>Embedded figures from the paper</h2>
+          </div>
+          <span class="chip accent-soft">Click any card to enlarge</span>
+        </div>
+
+        <div class="evidence-grid" id="evidence-grid">
+          <button class="evidence-card glass tilt-card" data-image="assets/fig1_agatston_scatter.png" data-title="Fig. 14 — Prediction vs Ground Truth Scatter Plot">
+            <img src="assets/fig1_agatston_scatter.png" alt="Agatston scatter plot" />
+            <div class="evidence-caption">
+              <h3>Scatter Agreement</h3>
+              <p>Shows score agreement and identity-line clustering.</p>
+            </div>
+          </button>
+          <button class="evidence-card glass tilt-card" data-image="assets/fig2_bland_altman.png" data-title="Fig. 15 — Bland-Altman Plot of Agatston Score Agreement">
+            <img src="assets/fig2_bland_altman.png" alt="Bland Altman plot" />
+            <div class="evidence-caption">
+              <h3>Bland-Altman</h3>
+              <p>Visualizes bias and 95% limits of agreement.</p>
+            </div>
+          </button>
+          <button class="evidence-card glass tilt-card" data-image="assets/fig3_confusion_matrix.png" data-title="Fig. 18 — Risk Category Confusion Matrix">
+            <img src="assets/fig3_confusion_matrix.png" alt="Risk confusion matrix" />
+            <div class="evidence-caption">
+              <h3>Risk Confusion Matrix</h3>
+              <p>Supports the five-tier risk classifier view.</p>
+            </div>
+          </button>
+          <button class="evidence-card glass tilt-card" data-image="assets/fig4_agatston_distribution.png" data-title="Fig. 16 — Distribution of Volume-Level Agatston Scores">
+            <img src="assets/fig4_agatston_distribution.png" alt="Agatston score distributions" />
+            <div class="evidence-caption">
+              <h3>Score Distribution</h3>
+              <p>Ground truth vs predicted score distribution patterns.</p>
+            </div>
+          </button>
+          <button class="evidence-card glass tilt-card" data-image="assets/fig5_vessel_performance.png" data-title="Fig. 20 — Per-Vessel Territory Assignment Performance">
+            <img src="assets/fig5_vessel_performance.png" alt="Vessel performance comparison" />
+            <div class="evidence-caption">
+              <h3>Territory Performance</h3>
+              <p>LM-LAD, LCX, and RCA agreement summary.</p>
+            </div>
+          </button>
+          <button class="evidence-card glass tilt-card" data-image="assets/fig6_dice_distribution.png" data-title="Fig. 8 — Distribution of Per-Patient Dice Scores">
+            <img src="assets/fig6_dice_distribution.png" alt="Dice distribution" />
+            <div class="evidence-caption">
+              <h3>Dice Distribution</h3>
+              <p>Illustrates segmentation consistency in CAC-positive cases.</p>
+            </div>
+          </button>
+          <button class="evidence-card glass tilt-card" data-image="assets/fig7_detection_metrics.png" data-title="Fig. 19 — Detection Performance Metrics">
+            <img src="assets/fig7_detection_metrics.png" alt="Detection metrics" />
+            <div class="evidence-caption">
+              <h3>Detection Metrics</h3>
+              <p>Precision, sensitivity, F1, and specificity panel.</p>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <section class="content-section" id="report">
+        <div class="section-head wide-head">
+          <div>
+            <p class="eyebrow">Presentation-ready output</p>
+            <h2>Report Lab</h2>
+          </div>
+          <div class="head-actions">
+            <button class="primary-btn small" id="simulate-export">Simulate export</button>
+          </div>
+        </div>
+
+        <div class="report-grid">
+          <div class="glass report-shell tilt-card">
+            <div class="report-topline">
+              <div>
+                <p class="mini-label">Simulated report draft</p>
+                <h3>CARDIOTECT Automated CAC Summary</h3>
+              </div>
+              <div class="report-status">Presentation mode</div>
+            </div>
+            <div class="report-paper" id="report-paper"></div>
+          </div>
+
+          <div class="side-column">
+            <div class="glass feature-card tilt-card">
+              <div class="section-head compact-head">
+                <div>
+                  <p class="eyebrow">UI intent</p>
+                  <h3>Design language</h3>
+                </div>
+              </div>
+              <ul class="feature-list">
+                <li>Dark cherry gradients + glassmorphism</li>
+                <li>3D heart hologram with orbiting vessel nodes</li>
+                <li>Interactive CT scan simulation</li>
+                <li>Paper figures embedded as evidence cards</li>
+                <li>Presentation-friendly report composer</li>
+              </ul>
+            </div>
+
+            <div class="glass feature-card tilt-card">
+              <div class="section-head compact-head">
+                <div>
+                  <p class="eyebrow">Prototype controls</p>
+                  <h3>What is simulated</h3>
+                </div>
+              </div>
+              <p class="fine-print">Every number tied to the study metrics is real to the manuscript, but patient profiles, slice playback, overlays, and export actions are intentionally simulated to help you sell the concept visually.</p>
+              <button class="secondary-btn full" id="cycle-case">Cycle case</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="image-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-close"></div>
+    <div class="modal-content glass">
+      <button class="modal-x" id="modal-x">×</button>
+      <h3 id="modal-title"></h3>
+      <img id="modal-image" alt="Expanded evidence figure" />
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

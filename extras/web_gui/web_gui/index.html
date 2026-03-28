@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CARDIOTECT Clinical Workstation</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="importmap">
+    {
+        "imports": {
+          "three": "/vendor/three.module.js"
+        }
+      }
+    </script>
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="spotlight" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar panel">
+      <div class="sidebar-brand">
+        <img class="sidebar-logo" src="/assets/CARDIOTECT%20LOGO.png" alt="Cardiotect logo" />
+        <div class="sidebar-brand-copy">
+          <span>CARDIO</span>
+          <span>TECT</span>
+        </div>
+      </div>
+
+      <nav class="nav-stack" aria-label="Primary navigation">
+        <button class="nav-btn active" data-section="home">
+          <span class="nav-index">01</span>
+          <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-btn" data-section="analysis">
+          <span class="nav-index">02</span>
+          <span class="nav-label">Analysis</span>
+        </button>
+        <button class="nav-btn" data-section="heart3d">
+          <span class="nav-index">03</span>
+          <span class="nav-label">3D Heart</span>
+        </button>
+        <button class="nav-btn" data-section="report">
+          <span class="nav-index">04</span>
+          <span class="nav-label">Report</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-status">
+        <p class="label">Engine Status</p>
+        <strong id="engine-state">Starting</strong>
+        <span id="engine-message">Booting local runtime...</span>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar panel">
+        <div class="topbar-brand">
+          <img src="/assets/CARDIOTECT%20LOGO.png" alt="Cardiotect logo" />
+          <div>
+            <p class="label">Clinical Calcium Workstation</p>
+            <h1>Cardiotect</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="chip" id="support-btn">Clinical Support</button>
+          <button class="chip" id="docs-btn">Documentation</button>
+          <button class="chip" id="settings-btn">Settings</button>
+        </div>
+      </header>
+
+      <section class="content-section active" id="home">
+        <div class="home-grid">
+          <article class="panel hero-card">
+            <div class="hero-copy">
+              <p class="label">Local AI Coronary Calcium Analysis</p>
+              <h2>Expert Cardiac Care,<br />Accelerated By AI.</h2>
+              <p class="lead">
+                Our advanced deep learning models deliver precise patient-centered coronary calcium scoring
+                in a fully automated local workstation built for clinical review, three-dimensional inspection,
+                and final reporting.
+              </p>
+            </div>
+
+            <div class="hero-actions">
+              <button class="primary-btn" id="home-run-analysis-btn">Run Analysis</button>
+              <button class="secondary-btn" data-jump="report">View Sample Report</button>
+            </div>
+
+            <div class="status-strip">
+              <div>
+                <span class="strip-label">Engine</span>
+                <strong id="overview-engine-pill">Loading</strong>
+              </div>
+              <div>
+                <span class="strip-label">GPU</span>
+                <strong id="overview-device-pill">Checking</strong>
+              </div>
+              <div>
+                <span class="strip-label">Current Study</span>
+                <strong id="overview-study-pill">None</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel logo-card">
+            <div class="logo-stage">
+              <img id="hero-logo" src="/assets/CARDIOTECT%20LOGO.png" alt="Cardiotect brand" />
+            </div>
+          </article>
+        </div>
+
+        <div class="home-bottom-grid">
+          <article class="panel compact-card">
+            <div class="card-head">
+              <div>
+                <p class="label">Performance Snapshot</p>
+                <h3>Validated Metrics</h3>
+              </div>
+            </div>
+            <div class="metric-grid compact" id="metric-grid"></div>
+          </article>
+
+          <article class="panel compact-card">
+            <div class="card-head">
+              <div>
+                <p class="label">Workflow</p>
+                <h3>Run In Four Steps</h3>
+              </div>
+            </div>
+            <div class="workflow-steps">
+              <div class="workflow-step"><span>01</span><strong>Select A DICOM Folder</strong></div>
+              <div class="workflow-step"><span>02</span><strong>Choose Registration Or Skip</strong></div>
+              <div class="workflow-step"><span>03</span><strong>Review Analysis Results</strong></div>
+              <div class="workflow-step"><span>04</span><strong>Inspect 3D Heart And Export Report</strong></div>
+            </div>
+          </article>
+
+          <article class="panel compact-card">
+            <div class="card-head">
+              <div>
+                <p class="label">Evidence Highlights</p>
+                <h3>Manuscript Figures</h3>
+              </div>
+            </div>
+            <div class="evidence-strip" id="home-evidence-grid"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section" id="analysis">
+        <div class="analysis-layout">
+          <div class="panel analysis-status-bar">
+            <div>
+              <span class="strip-label">Selected Folder</span>
+              <strong id="selected-path">No folder selected</strong>
+            </div>
+            <div>
+              <span class="strip-label">Study Status</span>
+              <strong id="study-status">Awaiting folder selection</strong>
+            </div>
+            <div>
+              <span class="strip-label">Progress</span>
+              <strong id="study-progress-label">0%</strong>
+            </div>
+            <div class="status-actions">
+              <button class="chip" id="browse-folder-btn">Browse Folder</button>
+              <button class="chip" id="open-registration-btn">Clinical Registration</button>
+              <button class="primary-btn small" id="run-study-btn">Run Analysis</button>
+            </div>
+          </div>
+
+          <div class="progress-shell">
+            <div id="study-progress-bar"></div>
+          </div>
+
+          <div class="analysis-grid">
+            <article class="panel viewer-card">
+              <div class="card-head viewer-head">
+                <div>
+                  <p class="label">Axial Review</p>
+                  <h2 id="case-title">No Study Loaded</h2>
+                </div>
+                <div class="viewer-readout">
+                  <div><span>Slice</span><strong id="slice-readout">0 / 0</strong></div>
+                  <div><span>Threshold</span><strong>130 HU</strong></div>
+                  <div><span>Window / Level</span><strong>1500 / 300</strong></div>
+                </div>
+              </div>
+
+              <div class="viewer-frame">
+                <img id="ct-viewer-image" alt="CT slice viewer" />
+              </div>
+
+              <div class="overlay-row">
+                <button class="chip active overlay-btn" data-overlay="both">AI + Ground Truth</button>
+                <button class="chip overlay-btn" data-overlay="ai">AI Only</button>
+                <button class="chip overlay-btn" data-overlay="gt">Ground Truth Only</button>
+                <button class="chip overlay-btn" data-overlay="raw">Raw CT</button>
+              </div>
+
+              <label class="slider-label">
+                <span>Slice Navigation</span>
+                <input id="slice-slider" type="range" min="0" max="0" value="0" />
+              </label>
+            </article>
+
+            <div class="analysis-side">
+              <article class="panel summary-card">
+                <div class="card-head">
+                  <div>
+                    <p class="label">Current Study</p>
+                    <h3>Result Summary</h3>
+                  </div>
+                </div>
+                <div class="result-grid">
+                  <div><span>Total Score</span><strong id="patient-score">--</strong></div>
+                  <div><span>Risk Tier</span><strong id="patient-risk">--</strong></div>
+                  <div><span>Top Territory</span><strong id="patient-territory">--</strong></div>
+                  <div><span>Ground Truth</span><strong id="patient-gt">--</strong></div>
+                </div>
+                <p id="patient-note" class="info-note">Select a folder and run analysis to populate the workstation.</p>
+                <div class="mini-bars" id="patient-vessels"></div>
+              </article>
+
+              <article class="panel registration-card">
+                <div class="card-head">
+                  <div>
+                    <p class="label">Clinical Registration</p>
+                    <h3>Attached Information</h3>
+                  </div>
+                  <button class="chip" id="edit-registration-btn">Edit</button>
+                </div>
+                <div id="registration-summary" class="registration-summary"></div>
+              </article>
+
+              <article class="panel compact-info-card">
+                <div class="card-head">
+                  <div>
+                    <p class="label">Operating Notes</p>
+                    <h3>Performance Guardrails</h3>
+                  </div>
+                </div>
+                <ul class="feature-list">
+                  <li>One heavy study job runs at a time to protect responsiveness.</li>
+                  <li>The AI engine is preloaded before patient processing begins.</li>
+                  <li>Rendered PNG slices are cached to keep scrubbing smooth.</li>
+                  <li>TotalSegmentator heart anatomy stays in the background path.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="heart3d">
+        <div class="heart-layout">
+          <div class="panel heart-toolbar">
+            <div>
+              <p class="label">Interactive Reconstruction</p>
+              <h2>3D Heart Workstation</h2>
+            </div>
+            <div class="heart-toolbar-status">
+              <div>
+                <span class="strip-label">Study</span>
+                <strong id="heart-study-pill">No Study</strong>
+              </div>
+              <div>
+                <span class="strip-label">3D Status</span>
+                <strong id="heart-build-status">Awaiting Analysis</strong>
+              </div>
+              <div>
+                <span class="strip-label">Progress</span>
+                <strong id="heart-progress-label">0%</strong>
+              </div>
+            </div>
+            <div class="heart-toolbar-actions">
+              <div class="mode-switch">
+                <button class="chip active mpr-mode-btn" data-mode="ai">AI Mode</button>
+                <button class="chip mpr-mode-btn" data-mode="gt">Ground Truth Mode</button>
+                <button class="chip mpr-mode-btn" data-mode="raw">Raw Mode</button>
+              </div>
+              <label class="slider-inline">
+                <span>Heart Opacity</span>
+                    <input id="heart-opacity" type="range" min="0" max="100" value="82" />
+              </label>
+              <button class="chip" id="reset-camera-btn">Reset View</button>
+              <button class="chip" id="toggle-ortho-btn">Ortho</button>
+            </div>
+            <div class="heart-progress-strip">
+              <div class="heart-progress-track">
+                <div class="heart-progress-fill" id="heart-progress-bar"></div>
+              </div>
+            </div>
+            <div class="heart-legend-dock" id="heart-legend"></div>
+          </div>
+
+          <div class="panel anatomy-console">
+            <article class="anatomy-card" data-anatomy-card="heart">
+              <div class="anatomy-card-head">
+                <div>
+                  <p class="label">3D Model</p>
+                  <h3>Heart Surface</h3>
+                </div>
+                <label class="toggle-inline">
+                  <input id="toggle-heart-model" type="checkbox" checked />
+                  <span>Visible</span>
+                </label>
+              </div>
+              <div class="anatomy-card-controls">
+                <label class="slider-label compact">
+                  <span>Axial Clip</span>
+                  <input id="clip-heart-axial" type="range" min="0" max="100" value="100" />
+                </label>
+                <label class="slider-label compact">
+                  <span>Coronal Clip</span>
+                  <input id="clip-heart-coronal" type="range" min="0" max="100" value="100" />
+                </label>
+                <label class="slider-label compact">
+                  <span>Sagittal Clip</span>
+                  <input id="clip-heart-sagittal" type="range" min="0" max="100" value="100" />
+                </label>
+              </div>
+            </article>
+
+            <article class="anatomy-card" data-anatomy-card="coronary">
+              <div class="anatomy-card-head">
+                <div>
+                  <p class="label">Licensed Task</p>
+                  <h3>Coronary Arteries</h3>
+                </div>
+                <label class="toggle-inline">
+                  <input id="toggle-coronary-model" type="checkbox" checked />
+                  <span>Visible</span>
+                </label>
+              </div>
+              <div class="anatomy-card-controls">
+                <label class="slider-label compact">
+                  <span>Axial Clip</span>
+                  <input id="clip-coronary-axial" type="range" min="0" max="100" value="100" />
+                </label>
+                <label class="slider-label compact">
+                  <span>Coronal Clip</span>
+                  <input id="clip-coronary-coronal" type="range" min="0" max="100" value="100" />
+                </label>
+                <label class="slider-label compact">
+                  <span>Sagittal Clip</span>
+                  <input id="clip-coronary-sagittal" type="range" min="0" max="100" value="100" />
+                </label>
+              </div>
+            </article>
+
+            <article class="anatomy-card" data-anatomy-card="chambers">
+              <div class="anatomy-card-head">
+                <div>
+                  <p class="label">Licensed Task</p>
+                  <h3>Heart Chambers</h3>
+                </div>
+                <label class="toggle-inline">
+                  <input id="toggle-chambers-model" type="checkbox" checked />
+                  <span>Visible</span>
+                </label>
+              </div>
+              <div class="anatomy-card-controls">
+                <label class="field-inline">
+                  <span>Focus</span>
+                  <select id="chamber-focus">
+                    <option value="all">All Chambers</option>
+                    <option value="heart_myocardium">Myocardium</option>
+                    <option value="heart_atrium_left">Left Atrium</option>
+                    <option value="heart_ventricle_left">Left Ventricle</option>
+                    <option value="heart_atrium_right">Right Atrium</option>
+                    <option value="heart_ventricle_right">Right Ventricle</option>
+                    <option value="aorta">Aorta</option>
+                    <option value="pulmonary_artery">Pulmonary Artery</option>
+                  </select>
+                </label>
+                <label class="slider-label compact">
+                  <span>Axial Clip</span>
+                  <input id="clip-chambers-axial" type="range" min="0" max="100" value="100" />
+                </label>
+                <label class="slider-label compact">
+                  <span>Coronal Clip</span>
+                  <input id="clip-chambers-coronal" type="range" min="0" max="100" value="100" />
+                </label>
+                <label class="slider-label compact">
+                  <span>Sagittal Clip</span>
+                  <input id="clip-chambers-sagittal" type="range" min="0" max="100" value="100" />
+                </label>
+              </div>
+            </article>
+          </div>
+
+          <div class="workstation-grid" id="workstation-grid">
+            <article class="panel work-panel" data-panel="axial">
+              <div class="panel-head">
+                <h3>Axial</h3>
+                <div class="panel-head-actions">
+                  <button class="panel-mini" data-mpr-reset="axial">Reset</button>
+                  <button class="panel-toggle" data-panel-toggle="axial">[ ]</button>
+                </div>
+              </div>
+              <div class="panel-frame mpr-panel-frame" data-mpr-frame="axial" title="Ctrl + Mouse Wheel to zoom. Drag to pan while zoomed. Double-click to reset.">
+                <img id="mpr-axial" class="mpr-image" alt="Axial MPR" />
+              </div>
+              <input id="mpr-axial-slider" type="range" min="0" max="0" value="0" />
+            </article>
+
+            <article class="panel work-panel" data-panel="coronal">
+              <div class="panel-head">
+                <h3>Coronal</h3>
+                <div class="panel-head-actions">
+                  <button class="panel-mini" data-mpr-reset="coronal">Reset</button>
+                  <button class="panel-toggle" data-panel-toggle="coronal">[ ]</button>
+                </div>
+              </div>
+              <div class="panel-frame mpr-panel-frame" data-mpr-frame="coronal" title="Ctrl + Mouse Wheel to zoom. Drag to pan while zoomed. Double-click to reset.">
+                <img id="mpr-coronal" class="mpr-image" alt="Coronal MPR" />
+              </div>
+              <input id="mpr-coronal-slider" type="range" min="0" max="0" value="0" />
+            </article>
+
+            <article class="panel work-panel" data-panel="sagittal">
+              <div class="panel-head">
+                <h3>Sagittal</h3>
+                <div class="panel-head-actions">
+                  <button class="panel-mini" data-mpr-reset="sagittal">Reset</button>
+                  <button class="panel-toggle" data-panel-toggle="sagittal">[ ]</button>
+                </div>
+              </div>
+              <div class="panel-frame mpr-panel-frame" data-mpr-frame="sagittal" title="Ctrl + Mouse Wheel to zoom. Drag to pan while zoomed. Double-click to reset.">
+                <img id="mpr-sagittal" class="mpr-image" alt="Sagittal MPR" />
+              </div>
+              <input id="mpr-sagittal-slider" type="range" min="0" max="0" value="0" />
+            </article>
+
+            <article class="panel work-panel panel-3d" data-panel="three">
+              <div class="panel-head">
+                <h3>3D Heart</h3>
+                <button class="panel-toggle" data-panel-toggle="three">[ ]</button>
+              </div>
+              <div class="panel-frame canvas-frame">
+                <canvas id="three-canvas"></canvas>
+              </div>
+              <div class="fullscreen-mpr-controls">
+                <label class="slider-label">
+                  <span>Axial</span>
+                  <input id="mpr-axial-slider-full" type="range" min="0" max="0" value="0" />
+                </label>
+                <label class="slider-label">
+                  <span>Coronal</span>
+                  <input id="mpr-coronal-slider-full" type="range" min="0" max="0" value="0" />
+                </label>
+                <label class="slider-label">
+                  <span>Sagittal</span>
+                  <input id="mpr-sagittal-slider-full" type="range" min="0" max="0" value="0" />
+                </label>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="report">
+        <div class="report-layout">
+          <article class="panel report-sidebar-card">
+            <div class="card-head">
+              <div>
+                <p class="label">Export Workflow</p>
+                <h2>Clinical Report</h2>
+              </div>
+            </div>
+            <p class="info-note">
+              Generate a live report directly from the current study. Registration remains optional and can be attached before or after the scan review.
+            </p>
+            <button class="primary-btn small" id="export-report-btn">Export PDF</button>
+            <div class="report-side-summary" id="report-side-summary"></div>
+            <div class="report-evidence-strip" id="report-evidence-grid"></div>
+          </article>
+
+          <article class="panel report-preview-card">
+            <div class="card-head">
+              <div>
+                <p class="label">Preview</p>
+                <h3>Cardiotect Clinical Report</h3>
+              </div>
+              <span class="report-status-pill">Server-Side PDF Export Ready</span>
+            </div>
+            <div class="report-paper-wrap">
+              <div class="report-paper" id="report-paper"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="image-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="image-modal"></div>
+    <div class="modal-dialog panel image-modal-dialog">
+      <button class="modal-x" data-close-modal="image-modal">X</button>
+      <h3 id="modal-title"></h3>
+      <img id="modal-image" alt="Expanded figure" />
+    </div>
+  </div>
+
+  <div class="modal" id="run-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="run-modal"></div>
+    <div class="modal-dialog panel compact-dialog">
+      <button class="modal-x" data-close-modal="run-modal">X</button>
+      <p class="label">Run Analysis</p>
+      <h3>Add Clinical Registration Before Analysis?</h3>
+      <p class="modal-copy">
+        Analysis can run with or without registration. Choose how you want to proceed for this study.
+      </p>
+      <div class="run-options-card">
+        <label class="toggle-inline">
+          <input id="run-enable-3d" type="checkbox" />
+          <span>Generate Optional 3D Anatomy</span>
+        </label>
+        <p class="info-note">
+          Leave this off for the fastest launch. Turn it on only when you want TotalSegmentator anatomy.
+        </p>
+        <div class="run-task-grid">
+          <label class="checkbox-row run-task-option"><input id="run-task-heart" type="checkbox" checked disabled /> Heart Surface</label>
+          <label class="checkbox-row run-task-option"><input id="run-task-coronary" type="checkbox" checked disabled /> Coronary Arteries</label>
+          <label class="checkbox-row run-task-option"><input id="run-task-chambers" type="checkbox" checked disabled /> Heart Chambers</label>
+        </div>
+      </div>
+      <div class="modal-action-grid">
+        <button class="primary-btn" id="run-without-registration-btn">Run Without Registration</button>
+        <button class="secondary-btn" id="run-with-saved-registration-btn">Use Saved Registration</button>
+        <button class="secondary-btn" id="open-registration-from-run-btn">Enter Registration</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="registration-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="registration-modal"></div>
+    <div class="modal-dialog panel registration-dialog">
+      <button class="modal-x" data-close-modal="registration-modal">X</button>
+      <div class="card-head">
+        <div>
+          <p class="label">Clinical Registration</p>
+          <h3>Patient Information</h3>
+        </div>
+      </div>
+      <div class="registration-grid">
+        <div class="form-card">
+          <label>Patient Name<input id="patient-name" type="text" placeholder="Last Name, First Name" /></label>
+          <label>Medical Record Number<input id="patient-mrn" type="text" placeholder="MRN-123456" /></label>
+          <div class="form-row">
+            <label>Age<input id="patient-age" type="number" min="0" max="120" value="0" /></label>
+            <label>Biological Sex<select id="patient-sex"><option value="">Not Provided</option><option>Male</option><option>Female</option></select></label>
+          </div>
+        </div>
+        <div class="form-card">
+          <label>Referring Physician<input id="study-physician" type="text" placeholder="Dr. Smith" /></label>
+          <label>Reason For Scan<textarea id="study-reason" rows="5" placeholder="Clinical indication"></textarea></label>
+        </div>
+        <div class="form-card">
+          <p class="label stacked-label">Risk Factors</p>
+          <label class="checkbox-row"><input id="risk-hypertension" type="checkbox" /> Hypertension</label>
+          <label class="checkbox-row"><input id="risk-hyperlipidemia" type="checkbox" /> Hyperlipidemia</label>
+          <label class="checkbox-row"><input id="risk-diabetes" type="checkbox" /> Diabetes</label>
+          <label class="checkbox-row"><input id="risk-smoking" type="checkbox" /> Smoking History</label>
+          <label class="checkbox-row"><input id="risk-family_hx" type="checkbox" /> Family History Of Premature CAD</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="chip" id="clear-registration-btn">Clear</button>
+        <div class="modal-footer-actions">
+          <button class="secondary-btn" id="save-registration-btn">Save Registration</button>
+          <button class="primary-btn" id="save-and-run-btn">Save And Run Analysis</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
