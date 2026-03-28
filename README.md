@@ -112,7 +112,7 @@ You need **Python** and **Git LFS** (for large model files). Here's how:
 
 ### **Need more help?**
 - **GitHub Issues**: Go to the "Issues" tab on this GitHub page
-- **Email**: [Your contact email here]
+- **Contact**: reuvenmundala12@gmail.com
 
 ---
 
@@ -155,12 +155,7 @@ If you installed Git:
 
 ---
 
-## 📜 **License & Citation**
 
-This project is for **research purposes only**. Not for clinical use.
-
-If you use this in your research, please cite:
-> [Original npj Digital Medicine paper citation]
 
 ---
 
@@ -168,7 +163,7 @@ If you use this in your research, please cite:
 
 1. **Check the troubleshooting section above**
 2. **Look at the "Issues" tab** on this GitHub page
-3. **Contact the research team** for academic inquiries
+3. **Contact**: reuvenmundala12@gmail.com
 
 ---
 
