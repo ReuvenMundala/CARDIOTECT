@@ -57,25 +57,34 @@ You need **Python** and **Git LFS** (for large model files). Here's how:
 
 ---
 
-## 📁 **Dataset Configuration (Optional)**
+## 📁 **Dataset Configuration**
 
-**The medical dataset is NOT included** (for privacy reasons). If you have your own dataset:
+**The medical dataset is available for research purposes.**
 
+### **Download the Dataset**
+1. **Click here to download**: [Dataset on Google Drive](https://drive.google.com/drive/folders/1lXYljyt6LyiaRucqfdc7J4DjdiRBWTQ_?usp=sharing)
+2. **Extract the downloaded ZIP file** to any folder on your computer
+3. **Note the folder path** where you extracted it
+
+### **Set Up the Dataset**
 1. **Edit the `.env` file** in the project root
 2. **Set your dataset path**:
    ```
-   CARDIOTECT_DATASET_ROOT=C:\path\to\your\dataset
+   CARDIOTECT_DATASET_ROOT=C:\path\to\extracted\dataset
    ```
-3. **Ensure your dataset follows this structure**:
-   ```
-   your_dataset/
-   └── patient_scans/
-       ├── patient_001/
-       │   ├── scan_001.dcm
-       │   └── scan_002.dcm
-       └── patient_002/
-           └── scan_001.dcm
-   ```
+3. **The dataset already follows the correct structure** - no changes needed
+
+### **Dataset Structure** (for reference)
+```
+dataset/
+└── cocacoronarycalciumandchestcts-2/
+    └── Gated_release_final/
+        ├── patient/
+        │   └── {patient_id}/
+        │       └── Pro_Gated_CS_3.0_I30f_3_70%/ (DICOM files)
+        └── calcium_xml/
+            └── {patient_id}.xml (annotation files)
+```
 
 ---
 
