@@ -1,7 +1,6 @@
 # Cardiotect Calcium Scoring
 
 Automated coronary calcium scoring using deep learning with external validation.
-Reproduces the method from npj Digital Medicine 2021.
 
 ## Quick Start (Windows)
 
