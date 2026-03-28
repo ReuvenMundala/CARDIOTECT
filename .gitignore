@@ -78,8 +78,13 @@ dmypy.json
 dataset/
 dataset_original/
 SPECIAL DATASET/
-outputs/
+
+# Outputs (ignore everything except checkpoints)
+outputs/*
+!outputs/checkpoints/
+outputs/checkpoints/*
 !outputs/checkpoints/*.ckpt
+
 RS PAPERS/
 *.pdf
 *.docx
@@ -87,8 +92,6 @@ RS PAPERS/
 *.csv
 *.txt
 !requirements.txt
-*.ckpt
-!outputs/checkpoints/*.ckpt
 *.pth
 *.h5
 *.hdf5
