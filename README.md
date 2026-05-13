@@ -119,10 +119,6 @@ dataset/
 - Try running as administrator
 - Look for error messages in the command window
 
-### **Need more help?**
-- **GitHub Issues**: Go to the "Issues" tab on this GitHub page
-- **Contact**: reuvenmundala12@gmail.com
-
 ---
 
 ##  **Project Structure Explained**
@@ -154,16 +150,6 @@ Cardiotect/
 - **GPU**: NVIDIA GPU with CUDA (optional, but makes analysis much faster)
 
 ---
-
-##  **Getting Updates**
-
-If you installed Git:
-1. Open Command Prompt in the project folder
-2. Run: `git pull`
-3. Run: `git lfs pull` (to update models if changed)
-
----
-
 
 
 ---
