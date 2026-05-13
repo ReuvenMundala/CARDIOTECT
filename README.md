@@ -1,4 +1,4 @@
-# 🫀 Cardiotect - Automated Coronary Calcium Scoring
+#  Cardiotect - Automated Coronary Calcium Scoring
 
 **A deep learning system for automated coronary calcium scoring from CT scans.**
 
@@ -42,7 +42,7 @@ You need **Python** and **Git LFS** (for large model files). Here's how:
 
 ---
 
-## 🖥️ **How to Use Cardiotect**
+##  **How to Use Cardiotect**
 
 ### **Basic Workflow:**
 1. **Launch the application** using `start_cardiotect_web.bat`
@@ -57,7 +57,7 @@ You need **Python** and **Git LFS** (for large model files). Here's how:
 
 ---
 
-## 📁 **Dataset Configuration**
+##  **Dataset Configuration**
 
 **The medical dataset is available for research purposes.**
 
@@ -88,7 +88,7 @@ dataset/
 
 ---
 
-## 🤖 **Model Checkpoints**
+##  **Model Checkpoints**
 
 **Pre-trained AI models are included!** You don't need to download anything extra.
 
@@ -99,7 +99,7 @@ dataset/
 
 ---
 
-## 🛠️ **Troubleshooting Common Issues**
+##  **Troubleshooting Common Issues**
 
 ### **"Python not found" error**
 - Reinstall Python and **check "Add Python to PATH"**
@@ -125,7 +125,7 @@ dataset/
 
 ---
 
-## 📂 **Project Structure Explained**
+##  **Project Structure Explained**
 
 ```
 Cardiotect/
@@ -145,7 +145,7 @@ Cardiotect/
 
 ---
 
-## 💻 **System Requirements**
+##  **System Requirements**
 
 - **Operating System**: Windows 10 or 11
 - **Python**: 3.8 or newer
@@ -155,7 +155,7 @@ Cardiotect/
 
 ---
 
-## 🔄 **Getting Updates**
+##  **Getting Updates**
 
 If you installed Git:
 1. Open Command Prompt in the project folder
@@ -168,12 +168,10 @@ If you installed Git:
 
 ---
 
-## 🆘 **Need Help?**
+##  **Need Help?**
 
 1. **Check the troubleshooting section above**
 2. **Look at the "Issues" tab** on this GitHub page
 3. **Contact**: reuvenmundala12@gmail.com
 
 ---
-
-**🫀 Thank you for using Cardiotect! Together, we can advance cardiovascular disease detection.**
